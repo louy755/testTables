@@ -22,3 +22,9 @@ global.$ = jQuery;
 $(document).ready(function() {
   $('#example').DataTable();
 });
+
+$(document).ready(function() {
+  $(".alert" ).fadeOut(5000);
+  $(".notice" ).fadeOut(5000);
+  $(".error" ).fadeOut(5000);
+});
