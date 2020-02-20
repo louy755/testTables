@@ -1,0 +1,177 @@
+
+<%= form_with(model: person, local: true) do |form| %>
+  <% if person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+        <% person.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container" style= 'background-color: Ivory' ><br>
+  <font size="5" color="DarkGreen"><strong>First step Add  the customer information</strong></font>
+    <div class="row">
+
+      <div class="col-sm">
+        <div class="field">
+          <%= form.label :name %><br>
+          <%= form.text_field :name, class:'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :phone %><br>
+          <%= form.text_field :phone , class:'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :email %><br>
+          <%= form.text_field :email, class:'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :delivery_date %><br>
+          <%= form.date_select :delivery_date %>
+        </div>
+
+      </div>
+
+      <div class="col-sm">
+        <div class="field">
+          <%= form.label :address %><br>
+          <%= form.text_field :address, class:'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :address2 %><br>
+          <%= form.text_field :address2, class:'form-control'  %>
+        </div>
+        <div class="field">
+          <%= form.label :sale_rep %><br>
+          <%= form.select :sale_rep, [current_user.username] %>
+        </div>
+
+        <div class="field">
+          <%= form.label :note %><br>
+          <%= form.text_area :note, class:'form-control'  %>
+        </div>
+
+      </div>
+
+      <div class="col-sm">
+        <div class="field">
+          <%= form.label :city %><br>
+          <%= form.text_field :city, class:'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :state %><br>
+          <%= form.text_field :state, class:'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :zip %><br>
+          <%= form.text_field :zip, class:'form-control'  %>
+        </div>
+
+      </div>
+
+    </div><br>
+  </div><br>
+
+  <button type="button" class="btn btn-primary btn-lg btn-block">Payment Methos and Amount</button>
+
+  <div class="container" style= 'background-color: WhiteSmoke'><br>
+  <font size="5" color="DarkGreen"><strong>Second step Add  the customer Payment information</strong></font><br>
+  <center><button type="button" class="btn btn-info">
+    Finance Purchase Check this Box only! <span class="badge badge-light"><%= form.check_box :full_payment %></span>
+  </button></center><br>
+  <hr>
+  <font size="3" color="red"><strong> Use this form if Customer pay cash or Credit/debit</strong></font>
+
+    <div class="row">
+      <div class="col">
+      
+      <div class="field">
+      <span style="color:blue"><%= form.label :payment_method %><br></spam>
+        <%= form.select :payment_method, ['', 'Credit/Debit Card', ['cash']]%>
+      </div>
+      <span style="color:blue"><div class="field"></span>
+        <%= form.label :amount %><br>
+        <%= form.text_field :amount, class:'form-control'  %>
+       </div>
+
+      </div>
+      <div class="col">
+      
+      <div class="field">
+      <span style="color:red"><%= form.label :payment_two_methos %></span><br>
+        <%= form.select :payment_two_methos, ['', 'Credit/Debit Card', ['cash']] %>
+      </div>
+      <span style="color:red"><div class="field"></span>
+        <%= form.label :amount_two %><br>
+        <%= form.text_field :amount_two, class:'form-control'  %>
+      </div>
+
+      </div>
+    </div>
+  </div><br>
+
+  <button type="button" class="btn btn-outline-warning btn-lg btn-block">Items Section</button>
+
+  <div data-controller="nested-form">
+    <template data-target='nested-form.template'>
+      <%= form.fields_for :items, Item.new, child_index: 'TEMPLATE_RECORD' do |item| %>
+        <%= render 'items_fields', form: item %>
+      <% end %>
+    </template>
+
+    <%= form.fields_for :items do |item| %>
+      <%= render 'items_fields', form: item %>
+    <% end %>
+
+    <div data-target="nested-form.add_item">
+    <font size="5" color="DarkGreen "><strong>Third  step Add Item/s</strong></font>
+      <%= link_to "Click to Add New Item Details ", "#", data: { action: "nested-form#add_association" }, class: 'btn btn-danger btn-lg btn-block' %>
+    </div><br>
+  </div>
+
+  <div class="container" style= 'background-color: Ivory'><br>
+  <font size="5" color="DarkGreen"><strong>Forth step Add Delivery, Fee, Discount if Applay</strong></font><br>
+    <div class="row">
+      <div class="col-sm">
+
+        <div class="field">
+          <%= form.label :deliver %>
+          <%= form.text_field :deliver %>
+        </div>
+
+      </div>
+
+      <div class="col-sm">
+        <div class="field">
+          <%= form.label :fee %>
+          <%= form.text_field :fee %>
+        </div>
+
+      </div>
+
+      <div class="col-sm">
+
+        <div class="field">
+          <%= form.label :discount %>
+          <%= form.text_field :discount %>
+        </div>
+
+      </div>
+
+    </div><br>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-success" type="submit">Create Invoice when you done </button>
+  </div>
+<% end %><br>

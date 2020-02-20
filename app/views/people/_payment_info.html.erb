@@ -1,0 +1,55 @@
+<br>
+<div class="container" >
+  <button type="button" class="btn btn btn-outline-success btn-lg btn-block">
+    <strong>In Store Payment Details!</strong>
+  </button>
+  <table class='table table-hover table-striped'>
+    <thead class='table-success'>
+      <tr>
+        <th>Payment method</th>
+        <th>Payment Amount</th>
+        <th>Date and Time</th>
+        <th>Payment Details</th>
+        <th>Invoive Info</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%=  @person.payment_method %><br> <%=  @person.payment_two_methos %></td>
+        <td><%= number_to_currency @person.amount %><br>
+          <%= number_to_currency @person.amount_two %><br><br><br>
+          <hr>
+          <span style="color:blue">
+            <%= number_to_currency @person.amount  + @person.amount_two %> Totoal Payments<br>
+          </span>
+        </td>
+
+        <td><%= @person.created_at.strftime("%A, %d %b %Y %l:%M %p") %><br></td>
+        <td>
+          <%= number_to_currency @person.sub_total %> Subtotal<br>
+          <%= number_to_currency @person.tax %> Tax<br>
+          <%= number_to_currency @person.fee %> Fee<br>
+          <%= number_to_currency @person.deliver %> Delivery<br>
+          <hr>
+          <span style="color:green">
+          <%= number_to_currency @person.total %> Tota Amount Due<br></span>
+          <%= %><br>
+        </td>
+        <td>
+          <span style="color:green">
+          <%= number_to_currency @person.total %> Total Amount Due</span><br>
+          <%= number_to_currency @person.discount %>  Discount if Applay!<br>
+          <span style="color:blue">
+            <%= number_to_currency @person.amount  + @person.amount_two %> Totoal Payments<br>
+          </span>
+          <br><br>
+          <hr>
+          <span style="color:red">
+          <%= number_to_currency @person.total  - (@person.amount  + @person.amount_two) %> Total Amount Due</span><br>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+   </table><br>
+</div>

@@ -1,0 +1,57 @@
+
+<div class='nested-fields'>
+<div class='form-group'>
+  <%= form.hidden_field :_destroy %>
+
+  <div class="container" style= 'background-color: LightCyan'><br>
+    <div class="row">
+      <div class="col-sm">
+
+        <div class="field">
+          <%= form.label :qunt %>
+          <%= form.text_field :qunt, class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.text_area :description, placeholder: 'Description', class: 'form-control' %>
+        </div>
+
+    </div>
+
+      <div class="col-sm">
+
+        <div class="field">
+          <%= form.label :item_type %>
+          <%= form.text_field :item_type, placeholder: 'Add SOFA & loveseat & Chair', class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :vendor %>
+          <%= form.select :vendor, ['Coster', 'Titanic', ['United'], ['Others']] %>
+        </div>
+
+      </div>
+
+
+      <div class="col-sm">
+
+        <div class="field">
+          <%= form.label :price %>
+          <%= form.text_field :price, placeholder: '$ AddPrice', class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :org_price %>
+          <%= form.text_field :org_price, placeholder: 'Actual coast', class: 'form-control' %>
+        </div>
+
+      </div>
+    </div><br>
+    <small>
+      <%= link_to "Wrong Item Press ro DELETE  This Please", "#", data: { action: "click->nested-form#remove_association" },:class => "btn btn-outline-danger btn-lg btn-block " %>
+    </small><br>
+  </div><br>
+  <hr>
+
+</div>
+</div><br>

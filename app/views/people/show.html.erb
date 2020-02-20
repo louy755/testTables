@@ -1,0 +1,183 @@
+<br>
+<%= link_to "print Recipt (PDF)", person_path(@person, format: 'pdf'), class:"btn btn-success" %><br><br>
+<button type="button" class="btn btn-dark btn-lg btn-block"> Invoice# &nbsp;&nbsp;<%= @person.phone %>&nbsp;&nbsp;&nbsp;&nbsp;<%= @person.name. titleize %></button>
+<div class="container" style= 'background-color: Ivory' ><br>
+
+  <div class="row">
+
+    <div class="col-sm">
+      <p>
+        <strong>Name:</strong>
+        <%= @person.name %>
+      </p>
+
+      <p>
+        <strong>Phone:</strong>
+        <%= @person.phone %>
+      </p>
+
+      <p>
+        <strong>Address:</strong>
+        <%= @person.address %>
+      </p>
+
+      <p>
+        <strong>Address2:</strong>
+        <%= @person.address2 %>
+      </p>
+
+    </div>
+
+    <div class="col-sm">
+
+      <p>
+        <strong>Email:</strong>
+        <%= @person.email %>
+      </p>
+
+      <p>
+        <strong>City:</strong>
+        <%= @person.city %>
+      </p>
+
+      <p>
+        <strong>State:</strong>
+        <%= @person.state %>
+      </p>
+
+      <p>
+        <strong>Zip:</strong>
+        <%= @person.zip %>
+      </p>
+
+    </div>
+
+    <div class="col-sm">
+      <p>
+        <strong>Sale rep:</strong>
+        <%= @person.sale_rep %>
+      </p>
+
+      <p>
+        <strong>Delivery date:</strong>
+        <%= @person.delivery_date %>
+      </p>
+
+      <p>
+        <strong>Date:</strong>
+        <%= @person.created_at.strftime("%A, %d %b %Y %l:%M %p") %>
+      </p>
+
+      <p>
+        <strong>Note:</strong>
+        <%= @person.note %>
+      </p>
+
+    </div>
+
+  </div><br>
+</div><br>
+
+<% if @person.full_payment == false %>
+  <button type="button" class="btn btn-danger btn-lg btn-block"><h3>Payment Need Attention Please! </h3></button>
+  <%= render 'payment_info' %>
+<% else %>
+  <button type="button" class="btn btn-success btn-lg btn-block"><h3>Finance Purchase  Paid in Full&nbsp;&nbsp; <%= number_to_currency @person.total %></h3></button>
+<% end %>
+<button type="button" class="btn btn-outline-secondary btn-lg btn-block">Items</button>
+<table class='table table-hover table-striped'>
+  <thead class='table-dark'>
+    <tr>
+      <th>QNTY</th>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Vendor</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person.items.each do |item| %>
+      <tr>
+        <td><%= item.qunt %></td>
+        <td><%= item.item_type %></td>
+        <td><%= item.description %></td>
+        <td><%= number_to_currency item.price %></td>
+        <td><%= item.vendor %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+
+      <p>
+        <strong>Tax:</strong>
+        <%= number_to_currency @person.tax %>
+      </p>
+
+      <p>
+        <strong>Fee:</strong>
+        <%= number_to_currency @person.fee %>
+      </p>
+
+    </div>
+
+    <div class="col-sm">
+
+      <p>
+        <strong>Sub total:</strong>
+        <%= number_to_currency @person.sub_total %>
+      </p>
+
+      <p>
+        <strong>Discount:</strong>
+        <%= number_to_currency @person.discount %>
+      </p>
+
+    </div>
+
+    <div class="col-sm">
+
+      <p>
+        <strong>Deliver:</strong>
+        <%= number_to_currency @person.deliver %>
+      </p>
+
+        <p>
+          <strong>Total:</strong>
+          <%= number_to_currency @person.total %>
+        </p>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <p>
+        <strong>Cost:</strong>
+        <%= number_to_currency @person.cost %>
+      </p>
+    </div>
+    <div class="col-sm">
+      <p>
+        <strong>Profit:</strong>
+        <%= number_to_currency @person.profit %>
+      </p>
+    </div>
+    <div class="col-sm">
+      <p>
+        <strong>Margin:</strong>
+        <%= @person.margin %>%
+      </p>
+    </div>
+  </div>
+</div><br>
+
+<%= link_to 'Edit', edit_person_path(@person), :class => "btn btn-outline-success" %>&nbsp;&nbsp;
+<%= link_to 'Back', people_path, :class => "btn btn-outline-success" %>

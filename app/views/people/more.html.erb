@@ -1,0 +1,94 @@
+<%= line_chart Person.group_by_day(:created_at).count %>
+<%= column_chart Person.group_by_month(:created_at).count  %><br><br>
+<div class="container" style= 'background-color: #e6f7ff'>
+  <div class="row">
+    <div class="col"><br>
+      <button type="button" class="btn btn-primary btn-lg btn-block">Sales Rep</button><br>
+      <center>
+        <%= pie_chart Person.group(:sale_rep).count, legend: "bottom", width: "400px", height: "400px" %>
+      </center>
+    </div>
+    <div class="col"><br>
+      <button type="button" class="btn btn-primary btn-lg btn-block">Sales Item by Vendor</button><br>
+      <center>
+        <%= pie_chart Item.group(:vendor).count, xtitle: "Finance", ytitle: "Debt/Credit", legend: "bottom",  width: "400px", height: "400px" %>
+      </center>
+    </div>
+  </div><br>
+</div><br><br>
+
+<%= line_chart Item.group(:item_type).group_by_week(:created_at).count %><br>
+<%= pie_chart Item.group(:item_type).count, legend: "bottom", width: "400px", height: "400px" %>
+
+
+<br>
+<button type="button" class="btn btn-primary">
+  Finance Sales <span class="badge badge-light"><%= Person.where(full_payment: true).count %></span>
+</button> +
+<button type="button" class="btn btn-primary">
+  Regailer sale <span class="badge badge-light"><%= Person.where(full_payment: false).count %></span>
+</button> =
+<button type="button" class="btn btn-primary">
+  Total Sales <span class="badge badge-light"><%= Person.all.count %></span>
+</button>
+
+
+<br><br>
+  <table class='table table-hover table-striped'>
+    <thead class='table-dark'>
+      <tr>
+        <th>Total Invoce</th>
+        <th>Sub Total</th>
+        <th>Discount</th>
+        <th>Tax</th>
+        <th>Coast</th>
+        <th>Delivery</th>
+        <th>Profit</th>
+        <th>Margin</th>
+        <th>Invice NO</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% Person.all.each do |rec| %>
+        <tr>
+          <td><%= number_to_currency rec.total %></td>
+          <td><%= number_to_currency rec.sub_total%></td>
+          <td><%= number_to_currency rec.discount %></td>
+          <td><%= number_to_currency rec.tax %></td>
+          <td><%= number_to_currency rec.cost %></td>
+          <td><%= number_to_currency rec.deliver %></td>
+          <td><%= number_to_currency rec.profit %></td>
+          <td><%= rec.profit = (rec.profit / rec.sub_total * 100).round(2) %> %</td>
+          <td><%= rec.phone %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <table class='table table-hover table-striped'>
+    <thead class='table-dark'>
+      <tr>
+        <th>Total Invoces</th>
+        <th>Sub Totals</th>
+        <th>Taxs</th>
+        <th>Costs</th>
+        <th>Deliveries</th>
+        <th>Profits</th>
+        <th>Margin</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td><%= number_to_currency total_invoices %></td>
+          <td><%= number_to_currency total_sub_total %></td>
+          <td><%= number_to_currency total_taxes %></td>
+          <td><%= number_to_currency total_cost %></td>
+          <td><%= number_to_currency total_delivery %></td>
+          <td><%= number_to_currency total_profit %></td>
+          <td><%= (total_profit / total_sub_total * 100).round(2) %> %</td>
+        </tr>
+    </tbody>
+  </table>
+<br>

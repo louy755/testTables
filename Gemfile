@@ -12,6 +12,10 @@ gem 'jbuilder', '~> 2.7'
 gem "figaro"
 gem 'devise'
 gem 'bcrypt', platforms: :ruby
+gem "chartkick"
+gem 'groupdate'
+gem 'prawn'
+gem 'prawn-table'
 
 
 

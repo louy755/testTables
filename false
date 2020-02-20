@@ -1,0 +1,2 @@
+      invoke  active_record
+      remove    db/migrate/20200219052856_add_paid_to_people.rb

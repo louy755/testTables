@@ -1,12 +1,15 @@
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="#"><font size="5" color="blue"><strong>DB CONCEPT</strong></font></a>
+<%= link_to 'DB CONCEPT' , people_path, :class => "btn btn-primary"%>&nbsp;&nbsp;
   <form class="form-inline my-2 my-lg-0">
+  <%= link_to 'Owner', more_info_path, :class => "btn btn-outline-primary"%>&nbsp;&nbsp;
     <% if user_signed_in? %>
-      <button type="button" class="btn btn-outline-primary">
+      <button type="button" class="btn btn-primary">
         Rep Name <span class="badge badge-light"><%= current_user.username %></span>
         <span class="sr-only">unread messages</span>
       </button>&nbsp;&nbsp;
+
       <%= link_to 'Edit profile', edit_user_registration_path, :class => "btn btn-outline-primary"%>&nbsp;&nbsp;
+
       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "btn btn-outline-primary"  %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path, :class => "btn btn-outline-primary"  %>&nbsp;&nbsp;
@@ -22,7 +25,7 @@
 <% elsif flash[:error] %>
   <div class="alert alert-error">
     <button type="button" class="close" date-dismiss="alert">&times;</button>
-    <%= flash[:notice] %>
+    <%= flash[:error] %>
   </div>
 <% elsif flash[:alert] %>
   <div class="alert alert-error">
